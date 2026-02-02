@@ -1,6 +1,6 @@
 # Project Owner Checklist
 
-**You are receiving ownership of this Eleven Data Challenge project. This guide will help you set up the infrastructure so your team can collaborate effectively.**
+**You are receiving ownership of this L'Oréal Data Challenge project. This guide will help you set up the infrastructure so your team can collaborate effectively.**
 
 ---
 
