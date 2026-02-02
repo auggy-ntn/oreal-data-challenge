@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["constants", "src"]
+
+[tool.setuptools.package-data]
+"*" = []
+
+[project]
+name = "20-data-challenge-l-oreal"
+version = "0.1.0"
+authors = [
+    { name = "Augustin Naton", email = "augustin.naton@gmail.com" },
+    { name = "Aymeric Falcon", email = "aymericdelongevialle@gmail.com" },
+    { name = "Paul Filisetti", email = "paul.filisetti@me.com" },
+    { name = "Paul Filisetti", email = "lperetie@gmail.com" },
+    { name = "William Belaidi", email = "william.belaidi@hec.edu"},
+    { name = "Gregoire Bidault", email = "gregoire.bidault@hec.edu"}
+]
+description = "Oreal data challenge for the XHEC Data Science and AI for Business course."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+
+
+dependencies = [
+    "dvc[s3]>=3.66.1",
+    "dvc-s3>=3.2.2",
+    "loguru>=0.7.3",
+    "pandas>=2.3.3",
+    "scikit-learn>=1.8.0",
+    "boto3>=1.42.19",
+    "dotenv>=0.9.9",
+    "openpyxl>=3.1.5",
+]
+
+
+[tool.uv]
+default-groups = ["dev"]
+
+[dependency-groups]
+dev = [
+    "nbstripout>=0.8.1",
+    "pre-commit>=4.3.0",
+    "ruff>=0.14.1",
+    "ipykernel>=7.0.1",
+    "plotly>=6.5.0",
+    "matplotlib>=3.10.8",
+    "ipywidgets>=8.1.8",
+    "prophet>=1.1.5",
+    "seaborn>=0.13.0",
+    "scipy>=1.15.0",
+]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "D",   # pydocstyle (docstring conventions)
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "D100", # Missing docstring in public module
+    "D104", # Missing docstring in public package
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["20-data-challenge-l-oreal"]
+force-sort-within-sections = true

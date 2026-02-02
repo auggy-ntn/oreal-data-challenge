@@ -1,0 +1,6 @@
+outs:
+- md5: 59256978afcc29085a7619d0f6a8c4e8.dir
+  size: 134055
+  nfiles: 1
+  hash: md5
+  path: bronze
