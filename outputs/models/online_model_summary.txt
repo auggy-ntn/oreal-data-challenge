@@ -1,0 +1,52 @@
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:           online_units   R-squared:                       0.837
+Model:                            OLS   Adj. R-squared:                  0.781
+Method:                 Least Squares   F-statistic:                     15.16
+Date:                Tue, 03 Feb 2026   Prob (F-statistic):           8.96e-21
+Time:                        10:55:41   Log-Likelihood:                -1083.8
+No. Observations:                 104   AIC:                             2222.
+Df Residuals:                      77   BIC:                             2293.
+Df Model:                          26
+Covariance Type:            nonrobust
+=========================================================================================================
+                                            coef    std err          t      P>|t|      [0.025      0.975]
+---------------------------------------------------------------------------------------------------------
+const                                   1.79e+05   2.56e+04      6.992      0.000    1.28e+05     2.3e+05
+week_num                                572.1065    104.338      5.483      0.000     364.343     779.870
+promo_distribution                    -2798.4823   6530.449     -0.429      0.669   -1.58e+04    1.02e+04
+online_price                          -2.467e+04   7356.241     -3.354      0.001   -3.93e+04      -1e+04
+sin_week                               1651.6686   4803.767      0.344      0.732   -7913.854    1.12e+04
+cos_week                               2021.1470   3269.680      0.618      0.538   -4489.617    8531.911
+sin_week_2                             2275.3192   2565.479      0.887      0.378   -2833.202    7383.840
+cos_week_2                             4199.1284   2672.709      1.571      0.120   -1122.915    9521.172
+is_christmas                          -2.573e+04   6585.974     -3.907      0.000   -3.88e+04   -1.26e+04
+is_black_friday                        5236.0506   6602.604      0.793      0.430   -7911.413    1.84e+04
+amazon_transformed                     -108.4039    1.2e+04     -0.009      0.993   -2.41e+04    2.38e+04
+amazon_retail_transformed              1.703e+04   1.11e+04      1.540      0.128   -4994.616     3.9e+04
+bvod_transformed                       1.866e+04   9242.381      2.019      0.047     253.253    3.71e+04
+citrus_transformed                     1.479e+04   8149.949      1.814      0.074   -1441.469     3.1e+04
+criteo_transformed                     -2.54e+04   9913.317     -2.562      0.012   -4.51e+04   -5661.393
+google_transformed                    -5.871e+04   2.89e+04     -2.033      0.045   -1.16e+05   -1210.613
+google_video_transformed               4.511e+04   1.17e+04      3.861      0.000    2.18e+04    6.84e+04
+influencer_management_transformed      -189.4962   1.07e+04     -0.018      0.986   -2.14e+04     2.1e+04
+linear_transformed                     -5.96e+04   1.38e+04     -4.330      0.000    -8.7e+04   -3.22e+04
+meta_transformed                       1.469e+04   7467.381      1.967      0.053    -181.043    2.96e+04
+meta_collab_ads_transformed            1.405e+04   7458.320      1.884      0.063    -801.793    2.89e+04
+pinterest_transformed                   2.38e+04   1.59e+04      1.498      0.138   -7837.541    5.54e+04
+tesco_transformed                      2.201e+04    1.4e+04      1.573      0.120   -5856.509    4.99e+04
+testers_and_merchandising_transformed  -411.6017   9268.727     -0.044      0.965   -1.89e+04     1.8e+04
+the_hut_group_transformed              5.957e+04   2.33e+04      2.555      0.013    1.32e+04    1.06e+05
+tik_tok_transformed                   -1.576e+04   9059.771     -1.740      0.086   -3.38e+04    2279.177
+youtube_transformed                    3683.3782   6210.387      0.593      0.555   -8683.082     1.6e+04
+==============================================================================
+Omnibus:                        1.815   Durbin-Watson:                   1.808
+Prob(Omnibus):                  0.403   Jarque-Bera (JB):                1.360
+Skew:                           0.047   Prob(JB):                        0.507
+Kurtosis:                       3.552   Cond. No.                     2.38e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.38e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.

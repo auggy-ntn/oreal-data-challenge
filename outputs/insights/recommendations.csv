@@ -1,0 +1,35 @@
+channel,current_investment,roi,saturation_status,recommendation,action,target_channel
+pinterest,75017.15,42.078999374833224,below_threshold,Significantly Increase,High ROI with room for growth; priority investment channel,offline
+google_video,131458.4680680115,23.269454185143108,below_threshold,Significantly Increase,High ROI with room for growth; priority investment channel,offline
+the_hut_group,108169.698,15.032033003781468,below_threshold,Monitor,Continue monitoring; effect not statistically significant,offline
+amazon_retail,590135.6822009999,13.00974616668455,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+tesco,600638.298,8.650806063596173,low_saturation,Significantly Increase,High ROI with room for growth; priority investment channel,offline
+citrus,621308.311,7.9368096607404,low_saturation,Significantly Increase,High ROI with room for growth; priority investment channel,offline
+meta_collab_ads,496694.8175462,6.667824613029639,low_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+meta,1425981.6851358,4.101851367546178,low_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+criteo,513252.9785669,3.3341070840515212,low_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+tik_tok,1045824.702,1.2704598429209328,below_threshold,Monitor,Continue monitoring; effect not statistically significant,offline
+linear,10017370.961000001,0.8596214462111169,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+bvod,869392.0916758999,0.49672311247581513,low_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+testers_and_merchandising,954174.2237131001,-1.9064101689769526,below_threshold,Monitor,Continue monitoring; effect not statistically significant,offline
+youtube,1468743.8339910842,-3.293102307216354,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+influencer_management,899892.8666170301,-3.4088750599494357,low_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+amazon,808266.8619105731,-7.038627780905859,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,offline
+google,149690.64977481548,-15.156878506486075,below_threshold,Monitor,Continue monitoring; effect not statistically significant,offline
+the_hut_group,108169.698,9.037453437397188,below_threshold,Significantly Increase,High ROI with room for growth; priority investment channel,online
+google_video,131458.4680680115,7.522521663160356,below_threshold,Significantly Increase,High ROI with room for growth; priority investment channel,online
+pinterest,75017.15,4.980338018408885,below_threshold,Monitor,Continue monitoring; effect not statistically significant,online
+amazon_retail,590135.6822009999,2.975281081584224,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+meta_collab_ads,496694.8175462,2.6089094936986443,low_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+bvod,869392.0916758999,2.396982381917531,low_saturation,Significantly Increase,High ROI with room for growth; priority investment channel,online
+citrus,621308.311,1.5403059736729638,low_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+tesco,600638.298,1.3784931594602823,low_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+meta,1425981.6851358,1.3519422781974226,low_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+youtube,1468743.8339910842,0.3382410245576513,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+influencer_management,899892.8666170301,-0.009475655899532209,low_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+amazon,808266.8619105731,-0.022443483034837265,moderate_saturation,Monitor,Continue monitoring; effect not statistically significant,online
+testers_and_merchandising,954174.2237131001,-0.06318277417288334,below_threshold,Monitor,Continue monitoring; effect not statistically significant,online
+tik_tok,1045824.702,-0.5749999146612569,below_threshold,Monitor,Continue monitoring; effect not statistically significant,online
+linear,10017370.961000001,-1.2417575751705974,moderate_saturation,Reduce/Reallocate,Negative contribution; reallocate to higher-performing channels,online
+criteo,513252.9785669,-4.035927992700313,low_saturation,Reduce/Reallocate,Negative contribution; reallocate to higher-performing channels,online
+google,149690.64977481548,-4.936948910649806,below_threshold,Reduce/Reallocate,Negative contribution; reallocate to higher-performing channels,online
