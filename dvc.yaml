@@ -1,0 +1,24 @@
+# DVC Pipeline Configuration
+# To run the pipeline: dvc repro
+# To run experiments: dvc exp run
+# To run with param override: dvc exp run --set-param train_models.n_trials=100
+# To visualize: dvc dag
+
+stages:
+  # Stage 1: Convert raw data to intermediate format
+  bronze_to_silver:
+    cmd: uv run python -m src.pipelines.data.bronze_to_silver
+    deps:
+      - src/pipelines/data/bronze_to_silver.py
+      - data/bronze/
+    outs:
+      - data/silver/
+
+  # Stage 2: Convert silver data to gold format (PyMC-Marketing ready)
+  silver_to_gold:
+    cmd: uv run python -m src.pipelines.data.silver_to_gold
+    deps:
+      - src/pipelines/data/silver_to_gold.py
+      - data/silver/
+    outs:
+      - data/gold/

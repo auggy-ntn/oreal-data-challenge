@@ -33,6 +33,7 @@ dependencies = [
     "boto3>=1.42.19",
     "dotenv>=0.9.9",
     "openpyxl>=3.1.5",
+    "pymc-marketing>=0.17.1",
 ]
 
 
