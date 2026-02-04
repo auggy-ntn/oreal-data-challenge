@@ -2,6 +2,8 @@
 
 import pandas as pd
 
+import constants.column_names.gold as gold_cols
+from constants.constants import DATE_FORMAT
 import constants.paths as pth
 
 
@@ -34,3 +36,20 @@ def load_silver_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     a_and_p_df = pd.read_csv(pth.SILVER_A_AND_P_FEATURES_FILE)
     commercial_df = pd.read_csv(pth.SILVER_COMMERCIAL_FEATURES_FILE)
     return target_df, a_and_p_df, commercial_df
+
+
+def load_gold_data(online: bool) -> tuple[pd.DataFrame, pd.Series]:
+    """Load gold data from a CSV file.
+
+    Returns:
+        tuple: A tuple containing:
+            - X: DataFrame with features.
+            - y: Series with target variable.
+    """
+    gold_df = pd.read_csv(
+        pth.GOLD_ONLINE_DATA_FILE if online else pth.GOLD_OFFLINE_DATA_FILE
+    )
+    X = gold_df.drop(columns=["target"])
+    X[gold_cols.DATE] = pd.to_datetime(X[gold_cols.DATE], format=DATE_FORMAT)
+    y = gold_df["target"]
+    return X, y

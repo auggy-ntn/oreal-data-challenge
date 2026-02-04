@@ -1,0 +1,63 @@
+# DVC Parameters Configuration
+# Modify these values and run `dvc exp run` to experiment with different settings
+# Or use `dvc exp run --set-param bayesian_model.sampler.draws=2000` to override
+
+bayesian_model:
+
+  # Run configuration
+  run_name: "bayesian_mmm_geometric_logistic"  # Name for the experiment run
+
+
+  # Adstock transformation: captures lagged effect of advertising
+  # Options: geometric, delayed, weibull_pdf, weibull_cdf
+  adstock:
+    type: geometric
+    # For geometric: alpha controls decay rate (0-1, higher = slower decay)
+    # For delayed: alpha + theta (delay parameter)
+    # For weibull: lam (shape) + k (scale)
+    l_max: 8  # Maximum lag (weeks)
+
+  # Saturation transformation: captures diminishing returns
+  # Options: logistic, tanh, michaelis_menten, hill
+  saturation:
+    type: logistic
+
+  # Seasonality: number of Fourier harmonics for yearly seasonality
+  yearly_seasonality: 2
+
+  # MCMC sampler settings
+  sampler:
+    draws: 1000       # Number of posterior samples
+    tune: 1000        # Number of tuning steps
+    chains: 4         # Number of MCMC chains
+    target_accept: 0.9  # Target acceptance rate
+
+
+  # Prior configuration (optional)
+  # Specify custom priors for model parameters
+  # Format: parameter_name: {dist: "DistributionName", kwargs: {param1: value1, ...}}
+  # Nested priors: use {dist: ..., kwargs: {sigma: {dist: ..., kwargs: {...}}}}
+  # Example priors you can customize:
+  #   - saturation_beta: channel coefficients (default: HalfNormal)
+  #   - adstock_alpha: adstock decay rate (default: Beta)
+  #   - likelihood: observation noise (default: Normal with HalfNormal sigma)
+  #   - intercept: baseline sales (default: Normal)
+  model_config:
+    # Example: Custom saturation_beta prior
+    # saturation_beta:
+    #   dist: LogNormal
+    #   kwargs:
+    #     mu: [2, 1]  # Per-channel means
+    #     sigma: 1
+    #
+    # Example: Custom likelihood with nested prior for sigma
+    # likelihood:
+    #   dist: Normal
+    #   kwargs:
+    #     sigma:
+    #       dist: HalfNormal
+    #       kwargs:
+    #         sigma: 2
+
+# Which dataset to train on (online or offline)
+dataset: online  # Options: online, offline

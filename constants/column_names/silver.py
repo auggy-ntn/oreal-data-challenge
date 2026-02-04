@@ -11,11 +11,11 @@ TARGET_ONLINE_SELLOUT_VALUE = "target_online_sellout_value"
 TARGET_OFFLINE_SELLOUT_VALUE = "target_offline_sellout_value"
 
 ## A&P Features
-L1 = "growth_driver_L1"
-L2 = "growth_driver_L2"
-L3 = "growth_driver_L3"
-L4 = "growth_driver_L4"
-L5 = "growth_driver_L5"
+L1 = "growth_driver_l1"
+L2 = "growth_driver_l2"
+L3 = "growth_driver_l3"
+L4 = "growth_driver_l4"
+L5 = "growth_driver_l5"
 INVESTMENT = "investment"  # For ROI calculation
 EXECUTION = "execution"
 

@@ -5,9 +5,9 @@ stages:
     deps:
     - path: data/bronze/
       hash: md5
-      md5: 0a4b49c5230e988ab1d939fe0b3f873f.dir
-      size: 134132
-      nfiles: 2
+      md5: 59256978afcc29085a7619d0f6a8c4e8.dir
+      size: 134055
+      nfiles: 1
     - path: src/pipelines/data/bronze_to_silver.py
       hash: md5
       md5: 6699f67ddf6dd9944586fb6a84d738af
@@ -15,7 +15,7 @@ stages:
     outs:
     - path: data/silver/
       hash: md5
-      md5: 4f5090cc84637222c08c86260faa5f80.dir
+      md5: 9be98011e2c8e88a5ef9bd71b2a71d41.dir
       size: 266048
       nfiles: 3
   silver_to_gold:
@@ -23,16 +23,55 @@ stages:
     deps:
     - path: data/silver/
       hash: md5
-      md5: 4f5090cc84637222c08c86260faa5f80.dir
+      md5: 9be98011e2c8e88a5ef9bd71b2a71d41.dir
       size: 266048
       nfiles: 3
     - path: src/pipelines/data/silver_to_gold.py
       hash: md5
-      md5: 8cb5948f1123726ef5ee462a0fba0ce2
-      size: 5002
+      md5: 69c93c2595867ab36585fdc89c492fe9
+      size: 5016
     outs:
     - path: data/gold/
       hash: md5
       md5: 91aec3f4dace5e495c779ac5872b32ed.dir
       size: 44534
+      nfiles: 2
+  train_models:
+    cmd: uv run python -m src.pipelines.models.train_models
+    deps:
+    - path: data/gold/
+      hash: md5
+      md5: 91aec3f4dace5e495c779ac5872b32ed.dir
+      size: 44534
+      nfiles: 2
+    - path: src/pipelines/models/bayesian.py
+      hash: md5
+      md5: f1348260840392fdbcf53628599dc6f9
+      size: 10639
+    - path: src/pipelines/models/train_models.py
+      hash: md5
+      md5: 1e6b1ee27bc470ad3084864df68d5877
+      size: 1435
+    params:
+      params.yaml:
+        bayesian_model:
+          run_name: bayesian_mmm_geometric_logistic
+          adstock:
+            type: geometric
+            l_max: 8
+          saturation:
+            type: logistic
+          yearly_seasonality: 2
+          sampler:
+            draws: 1000
+            tune: 1000
+            chains: 4
+            target_accept: 0.9
+          model_config:
+        dataset: online
+    outs:
+    - path: models/
+      hash: md5
+      md5: 304497f8337f74a12b2c9d089426349b.dir
+      size: 272003986
       nfiles: 2

@@ -32,5 +32,11 @@ GOLD_DIR = DATA_DIR / "gold"
 GOLD_ONLINE_DATA_FILE = GOLD_DIR / "online_mmm_data.csv"
 GOLD_OFFLINE_DATA_FILE = GOLD_DIR / "offline_mmm_data.csv"
 
+# Models directory
+MODELS_DIR = PROJECT_ROOT / "models"
+
 # Configuration directory
 CONFIG_DIR = PROJECT_ROOT / "config"
+
+# Parameters file
+PARAMS_FILE = "params.yaml"

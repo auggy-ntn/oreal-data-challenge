@@ -22,3 +22,17 @@ stages:
       - data/silver/
     outs:
       - data/gold/
+
+  # Stage 3: Train models
+  train_models:
+    cmd: uv run python -m src.pipelines.models.train_models
+    deps:
+      - src/pipelines/models/train_models.py
+      - src/pipelines/models/bayesian.py
+      - data/gold/
+    params:
+      - bayesian_model
+      - dataset
+    outs:
+      - models/:
+          persist: true  # Don't delete existing models on repro
