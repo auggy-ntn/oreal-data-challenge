@@ -5,16 +5,34 @@ stages:
     deps:
     - path: data/bronze/
       hash: md5
-      md5: e5381b52a073c577c52210281e925dd9.dir
+      md5: 0a4b49c5230e988ab1d939fe0b3f873f.dir
       size: 134132
       nfiles: 2
     - path: src/pipelines/data/bronze_to_silver.py
       hash: md5
-      md5: 5b5a030795c2f7792dda65bfd51a2a39
-      size: 2970
+      md5: 6699f67ddf6dd9944586fb6a84d738af
+      size: 3593
     outs:
     - path: data/silver/
       hash: md5
-      md5: b88419ab41e20d205f3f73f2386c423e.dir
-      size: 260979
+      md5: 4f5090cc84637222c08c86260faa5f80.dir
+      size: 266048
+      nfiles: 3
+  silver_to_gold:
+    cmd: uv run python -m src.pipelines.data.silver_to_gold
+    deps:
+    - path: data/silver/
+      hash: md5
+      md5: 4f5090cc84637222c08c86260faa5f80.dir
+      size: 266048
+      nfiles: 3
+    - path: src/pipelines/data/silver_to_gold.py
+      hash: md5
+      md5: 8cb5948f1123726ef5ee462a0fba0ce2
+      size: 5002
+    outs:
+    - path: data/gold/
+      hash: md5
+      md5: 91aec3f4dace5e495c779ac5872b32ed.dir
+      size: 44534
       nfiles: 2

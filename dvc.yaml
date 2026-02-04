@@ -14,11 +14,11 @@ stages:
     outs:
       - data/silver/
 
-  # # Stage 2: Convert silver data to gold format
-  # silver_to_gold:
-  #   cmd: uv run python -m src.pipelines.data.silver_to_gold
-  #   deps:
-  #     - src/pipelines/data/silver_to_gold.py
-  #     - data/silver/
-  #   outs:
-  #     - data/gold/
+  # Stage 2: Convert silver data to gold format (PyMC-Marketing ready)
+  silver_to_gold:
+    cmd: uv run python -m src.pipelines.data.silver_to_gold
+    deps:
+      - src/pipelines/data/silver_to_gold.py
+      - data/silver/
+    outs:
+      - data/gold/

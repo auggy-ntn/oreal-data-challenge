@@ -25,6 +25,12 @@ A_AND_P_DEF_SHEET = "A&P Variables Definition"
 # Silver processed data files
 SILVER_TARGET_FILE = SILVER_DIR / "target.csv"
 SILVER_A_AND_P_FEATURES_FILE = SILVER_DIR / "a_and_p_features.csv"
+SILVER_COMMERCIAL_FEATURES_FILE = SILVER_DIR / "commercial_features.csv"
+
+# Gold processed data files (PyMC-Marketing ready)
+GOLD_DIR = DATA_DIR / "gold"
+GOLD_ONLINE_DATA_FILE = GOLD_DIR / "online_mmm_data.csv"
+GOLD_OFFLINE_DATA_FILE = GOLD_DIR / "offline_mmm_data.csv"
 
 # Configuration directory
 CONFIG_DIR = PROJECT_ROOT / "config"

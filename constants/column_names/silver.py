@@ -18,3 +18,8 @@ L4 = "growth_driver_L4"
 L5 = "growth_driver_L5"
 INVESTMENT = "investment"  # For ROI calculation
 EXECUTION = "execution"
+
+## Commercial Features
+OFFLINE_AVG_PRICE = "offline_average_price"
+ONLINE_AVG_PRICE = "online_average_price"
+TOTAL_WEIGHTED_PROMOTION_DISTRIBUTION = "total_weighted_promotion_distribution"
