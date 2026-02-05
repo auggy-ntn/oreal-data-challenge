@@ -28,26 +28,26 @@ stages:
       nfiles: 3
     - path: src/pipelines/data/silver_to_gold.py
       hash: md5
-      md5: 69c93c2595867ab36585fdc89c492fe9
-      size: 5016
+      md5: 2ed205e8e9a551dc5d2aa172c544f60f
+      size: 6584
     outs:
     - path: data/gold/
       hash: md5
-      md5: 91aec3f4dace5e495c779ac5872b32ed.dir
-      size: 44534
-      nfiles: 2
+      md5: 4ce1d72d1aa8a75cad1785f2bdf77e4c.dir
+      size: 160948
+      nfiles: 4
   train_models:
     cmd: uv run python -m src.pipelines.models.train_models
     deps:
     - path: data/gold/
       hash: md5
-      md5: 91aec3f4dace5e495c779ac5872b32ed.dir
-      size: 44534
-      nfiles: 2
+      md5: 4ce1d72d1aa8a75cad1785f2bdf77e4c.dir
+      size: 160948
+      nfiles: 4
     - path: src/pipelines/models/bayesian.py
       hash: md5
-      md5: f1348260840392fdbcf53628599dc6f9
-      size: 10639
+      md5: 11a0c6a7b525137b3082d292cb7f4e8a
+      size: 11199
     - path: src/pipelines/models/train_models.py
       hash: md5
       md5: 1e6b1ee27bc470ad3084864df68d5877
@@ -55,7 +55,7 @@ stages:
     params:
       params.yaml:
         bayesian_model:
-          run_name: bayesian_mmm_geometric_logistic
+          run_name: bayesian_mmm_geometric_logistic_test
           adstock:
             type: geometric
             l_max: 8
@@ -72,6 +72,6 @@ stages:
     outs:
     - path: models/
       hash: md5
-      md5: 304497f8337f74a12b2c9d089426349b.dir
-      size: 272003986
-      nfiles: 2
+      md5: 899fc52f6edd8f6c004c5ab753d593c6.dir
+      size: 409890666
+      nfiles: 4

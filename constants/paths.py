@@ -29,6 +29,8 @@ SILVER_COMMERCIAL_FEATURES_FILE = SILVER_DIR / "commercial_features.csv"
 
 # Gold processed data files (PyMC-Marketing ready)
 GOLD_DIR = DATA_DIR / "gold"
+GOLD_LEVEL_MAPPING_FILE = GOLD_DIR / "level_mapping.csv"
+GOLD_SPEND_MAPPING_FILE = GOLD_DIR / "spend_mapping.csv"
 GOLD_ONLINE_DATA_FILE = GOLD_DIR / "online_mmm_data.csv"
 GOLD_OFFLINE_DATA_FILE = GOLD_DIR / "offline_mmm_data.csv"
 

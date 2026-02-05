@@ -25,6 +25,7 @@ from pymc_marketing.mmm import (
 
 from constants.column_names import gold as gold_cols
 import constants.paths as pth
+from src.pipelines.models.utils.contributions import compute_contribution
 from src.utils.logger import logger
 
 # Mapping from string names to transformation classes
@@ -297,8 +298,9 @@ def train_bayesian_model(
     }
 
     # Ensure models directory exists
-    pth.MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    model_path = pth.MODELS_DIR / f"{run_name}.nc"
+    model_dir = pth.MODELS_DIR / run_name
+    model_dir.mkdir(exist_ok=True, parents=True)
+    model_path = model_dir / "model.nc"
 
     with mlflow.start_run(run_name=run_name):
         # Log parameters
@@ -315,12 +317,12 @@ def train_bayesian_model(
         logger.info("Fitting Bayesian MMM model...")
         idata = model.fit(X, y, **fit_kwargs)
 
-        # Compute and log diagnostics
+        # Compute and log diagnostics (only on posterior samples to avoid NaN warnings)
         logger.info("Computing model diagnostics...")
-        summary = az.summary(idata)
-        mean_ess = summary["ess_bulk"].mean()
-        mean_rhat = summary["r_hat"].mean()
-        max_rhat = summary["r_hat"].max()
+        summary = az.summary(idata.posterior)
+        mean_ess = summary["ess_bulk"].mean(skipna=True)
+        mean_rhat = summary["r_hat"].mean(skipna=True)
+        max_rhat = summary["r_hat"].dropna().max()
 
         # Compute R-squared on historical data
         logger.info("Computing R-squared on historical data...")
@@ -336,7 +338,8 @@ def train_bayesian_model(
         )
 
         logger.info(
-            f"Mean ESS: {mean_ess:.0f}, Mean R-hat: {mean_rhat:.4f}, "
+            f"Mean ESS: {mean_ess:.0f}, \n"
+            f"Mean R-hat: {mean_rhat:.4f}, \n"
             f"R-squared: {r_squared:.4f}"
         )
 
@@ -350,6 +353,16 @@ def train_bayesian_model(
         logger.info(
             f"Model training complete. MLflow run: {mlflow.active_run().info.run_id}"
         )
+
+        # Compute channel contributions and graphs, log them as artifacts
+        artifacts_dir = model_dir / "artifacts"
+        artifacts_dir.mkdir(exist_ok=True, parents=True)
+
+        contributions_df = compute_contribution(model)
+        contributions_df.to_csv(artifacts_dir / "contributions.csv", index=False)
+
+        # Log all artifacts in the directory
+        mlflow.log_artifacts(str(artifacts_dir), artifact_path="artifacts")
 
     return model
 

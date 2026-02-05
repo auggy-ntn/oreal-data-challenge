@@ -101,11 +101,48 @@ def create_gold_dataset(
     return gold_data
 
 
+def create_level_mapping(a_and_p_features: pd.DataFrame) -> pd.DataFrame:
+    """Create a mapping of L5 levels to L4, L3 and L2 for re-aggregation.
+
+    Args:
+        a_and_p_features: A&P features DataFrame containing L4 and L5 columns.
+
+    Returns:
+        DataFrame with columns for L5, L4, L3 and L2 levels.
+    """
+    mapping_df = a_and_p_features[
+        [silver_cols.L5, silver_cols.L4, silver_cols.L3, silver_cols.L2]
+    ].drop_duplicates()
+    return mapping_df
+
+
+def create_spend_mapping(a_and_p_features: pd.DataFrame) -> pd.DataFrame:
+    """Create a mapping of L5 levels to spend at date for ROI calculation.
+
+    Args:
+        a_and_p_features: A&P features DataFrame containing L5 and execution columns.
+
+    Returns:
+        DataFrame with columns for L5 and spend at date.
+    """
+    spend_mapping = a_and_p_features[
+        [
+            silver_cols.STARTING_WEEK,
+            silver_cols.L5,
+            silver_cols.INVESTMENT,
+        ]
+    ].drop_duplicates()
+
+    return spend_mapping
+
+
 def silver_to_gold_pipeline() -> None:
     """Transform silver data to gold data.
 
     Creates two gold datasets: one for online sellout, one for offline sellout.
     Each dataset is in wide format with starting_week as the datetime index.
+
+    Also creates a level mapping file for L5 to L4, L3 and L2 for re-aggregation.
     """
     logger.info(f"Loading silver data from {pth.SILVER_DIR}...")
     target_df, a_and_p_features, commercial_features = load_silver_data()
@@ -124,6 +161,16 @@ def silver_to_gold_pipeline() -> None:
 
     # Create gold directory
     Path(pth.GOLD_DIR).mkdir(parents=True, exist_ok=True)
+
+    # Create level mapping for re-aggregation
+    logger.info("Creating level mapping for re-aggregation")
+    level_mapping = create_level_mapping(a_and_p_features)
+    level_mapping.to_csv(pth.GOLD_LEVEL_MAPPING_FILE, index=False)
+
+    # Create spend mapping for ROI calculation
+    logger.info("Creating spend mapping for ROI calculation")
+    spend_mapping = create_spend_mapping(a_and_p_features)
+    spend_mapping.to_csv(pth.GOLD_SPEND_MAPPING_FILE, index=False)
 
     # Create online gold dataset
     logger.info("Creating online gold dataset")
