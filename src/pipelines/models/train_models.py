@@ -40,6 +40,7 @@ def train_models() -> None:
         X=X,
         y=y,
         run_name=full_run_name,
+        target_type="online" if online else "offline",
         sampler_config=sampler_config,
     )
 

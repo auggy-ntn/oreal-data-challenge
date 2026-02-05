@@ -279,6 +279,7 @@ def train_bayesian_model(
     X: pd.DataFrame,
     y: pd.Series,
     run_name: str,
+    target_type: str,
     sampler_config: dict | None = None,
 ) -> MMM:
     """Train the Bayesian MMM model and log to MLflow.
@@ -288,6 +289,7 @@ def train_bayesian_model(
         X: Feature DataFrame.
         y: Target Series.
         run_name: Name for the MLflow run and saved model.
+        target_type: Type of the target variable ("online" or "offline").
         sampler_config: MCMC sampler configuration (draws, tune, chains, target_accept).
 
     Returns:
@@ -310,6 +312,7 @@ def train_bayesian_model(
     model_path = model_dir / "model.nc"
 
     with mlflow.start_run(run_name=run_name):
+        mlflow.set_tag("target_type", target_type)
         # Log parameters
         mlflow.log_params(
             {

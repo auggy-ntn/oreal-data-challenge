@@ -5,7 +5,7 @@
 bayesian_model:
 
   # Run configuration
-  run_name: "bayesian_mmm_geometric_logistic"  # Name for the experiment run
+  run_name: bayesian_mmm_geometric_logistic_tuned     # Name for the experiment run
 
 
   # Adstock transformation: captures lagged effect of advertising
@@ -27,10 +27,10 @@ bayesian_model:
 
   # MCMC sampler settings
   sampler:
-    draws: 1000       # Number of posterior samples
-    tune: 1000        # Number of tuning steps
+    draws: 2000       # Number of posterior samples
+    tune: 2000        # Number of tuning steps
     chains: 4         # Number of MCMC chains
-    target_accept: 0.9  # Target acceptance rate
+    target_accept: 0.95 # Target acceptance rate
 
 
   # Prior configuration (optional)

@@ -46,7 +46,7 @@ stages:
       nfiles: 4
     - path: src/pipelines/models/bayesian.py
       hash: md5
-      md5: 249e5e96bd6e2b86e6fea6233a9c8082
+      md5: ab8d16f10f99ecea2f2fd6be4fe4800e
       size: 13121
     - path: src/pipelines/models/train_models.py
       hash: md5
@@ -55,7 +55,7 @@ stages:
     params:
       params.yaml:
         bayesian_model:
-          run_name: bayesian_mmm_geometric_logistic
+          run_name: bayesian_mmm_geometric_logistic_tuned
           adstock:
             type: geometric
             l_max: 8
@@ -63,15 +63,15 @@ stages:
             type: logistic
           yearly_seasonality: 2
           sampler:
-            draws: 1000
-            tune: 1000
+            draws: 2000
+            tune: 2000
             chains: 4
-            target_accept: 0.9
+            target_accept: 0.95
           model_config:
         dataset: online
     outs:
     - path: models/
       hash: md5
-      md5: 6618c8ef3af179e7ef4a64d7f80ad293.dir
-      size: 549317769
-      nfiles: 22
+      md5: c9b9085c492e1f19f74e880946921b07.dir
+      size: 2191734862
+      nfiles: 112
