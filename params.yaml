@@ -5,7 +5,7 @@
 bayesian_model:
 
   # Run configuration
-  run_name: "bayesian_mmm_geometric_logistic_test"  # Name for the experiment run
+  run_name: "bayesian_mmm_geometric_logistic"  # Name for the experiment run
 
 
   # Adstock transformation: captures lagged effect of advertising

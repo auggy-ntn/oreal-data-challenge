@@ -46,8 +46,8 @@ stages:
       nfiles: 4
     - path: src/pipelines/models/bayesian.py
       hash: md5
-      md5: 11a0c6a7b525137b3082d292cb7f4e8a
-      size: 11199
+      md5: 249e5e96bd6e2b86e6fea6233a9c8082
+      size: 13121
     - path: src/pipelines/models/train_models.py
       hash: md5
       md5: 1e6b1ee27bc470ad3084864df68d5877
@@ -55,7 +55,7 @@ stages:
     params:
       params.yaml:
         bayesian_model:
-          run_name: bayesian_mmm_geometric_logistic_test
+          run_name: bayesian_mmm_geometric_logistic
           adstock:
             type: geometric
             l_max: 8
@@ -72,6 +72,6 @@ stages:
     outs:
     - path: models/
       hash: md5
-      md5: 899fc52f6edd8f6c004c5ab753d593c6.dir
-      size: 409890666
-      nfiles: 4
+      md5: 6618c8ef3af179e7ef4a64d7f80ad293.dir
+      size: 549317769
+      nfiles: 22

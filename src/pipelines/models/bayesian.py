@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from typing import Any
+import warnings
 
 import arviz as az
 from dotenv import load_dotenv
@@ -26,6 +27,12 @@ from pymc_marketing.mmm import (
 from constants.column_names import gold as gold_cols
 import constants.paths as pth
 from src.pipelines.models.utils.contributions import compute_contribution
+from src.pipelines.models.utils.plotting import (
+    plot_contribution_decomposition,
+    plot_yearly_incremental_units,
+    plot_yearly_roi,
+    plot_yearly_spend,
+)
 from src.utils.logger import logger
 
 # Mapping from string names to transformation classes
@@ -319,10 +326,19 @@ def train_bayesian_model(
 
         # Compute and log diagnostics (only on posterior samples to avoid NaN warnings)
         logger.info("Computing model diagnostics...")
-        summary = az.summary(idata.posterior)
-        mean_ess = summary["ess_bulk"].mean(skipna=True)
-        mean_rhat = summary["r_hat"].mean(skipna=True)
-        max_rhat = summary["r_hat"].dropna().max()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=RuntimeWarning)
+            summary = az.summary(idata.posterior)
+
+        # Compute diagnostic statistics
+        ess_values = summary["ess_bulk"].dropna()
+        rhat_values = summary["r_hat"].dropna()
+
+        mean_ess = ess_values.mean()
+        min_ess = ess_values.min()
+        mean_rhat = rhat_values.mean()
+        max_rhat = rhat_values.max()
+        n_params_rhat_above_1_01 = (rhat_values > 1.01).sum()
 
         # Compute R-squared on historical data
         logger.info("Computing R-squared on historical data...")
@@ -331,15 +347,18 @@ def train_bayesian_model(
         mlflow.log_metrics(
             {
                 "mean_ess_bulk": mean_ess,
+                "min_ess_bulk": min_ess,
                 "mean_rhat": mean_rhat,
                 "max_rhat": max_rhat,
+                "n_params_rhat_above_1_01": n_params_rhat_above_1_01,
                 "r_squared": r_squared,
             }
         )
 
         logger.info(
-            f"Mean ESS: {mean_ess:.0f}, \n"
-            f"Mean R-hat: {mean_rhat:.4f}, \n"
+            f"Mean ESS: {mean_ess:.0f}, Min ESS: {min_ess:.0f}\n"
+            f"Mean R-hat: {mean_rhat:.4f}, Max R-hat: {max_rhat:.4f}\n"
+            f"Params with R-hat > 1.01: {n_params_rhat_above_1_01}\n"
             f"R-squared: {r_squared:.4f}"
         )
 
@@ -360,6 +379,33 @@ def train_bayesian_model(
 
         contributions_df = compute_contribution(model)
         contributions_df.to_csv(artifacts_dir / "contributions.csv", index=False)
+
+        # Generate plots
+        logger.info("Generating performance plots...")
+        for granularity in ["L2", "L3"]:
+            # Contribution decomposition plot
+            fig_decomp = plot_contribution_decomposition(
+                contributions_df, granularity=granularity
+            )
+            fig_decomp.write_image(
+                artifacts_dir / f"contribution_decomposition_{granularity}.png", scale=2
+            )
+
+            # Incremental units plot
+            fig_units = plot_yearly_incremental_units(
+                contributions_df, granularity=granularity
+            )
+            fig_units.write_image(
+                artifacts_dir / f"incremental_units_{granularity}.png", scale=2
+            )
+
+            # Spend plot
+            fig_spend = plot_yearly_spend(contributions_df, granularity=granularity)
+            fig_spend.write_image(artifacts_dir / f"spend_{granularity}.png", scale=2)
+
+            # ROI plot
+            fig_roi = plot_yearly_roi(contributions_df, granularity=granularity)
+            fig_roi.write_image(artifacts_dir / f"roi_{granularity}.png", scale=2)
 
         # Log all artifacts in the directory
         mlflow.log_artifacts(str(artifacts_dir), artifact_path="artifacts")
